@@ -22,6 +22,7 @@ public class Panneau extends Canvas {
 	Graphiques graph ;
 	BufferStrategy bs;
 	BufferedImage herbe;
+	BufferedImage zelda;
 	int largeur_tuile = 32;
 	
 	public Panneau(Graphiques graph)
@@ -35,7 +36,7 @@ public class Panneau extends Canvas {
 		setMaximumSize(size);
 
 			
-		//chargement de l'image, provisoire
+		//chargement des images, provisoire
 		BufferedImage planche = null ;
 		try {
 			planche = ImageIO.read(new File("src/images/grassgrid.png"));
@@ -44,7 +45,15 @@ public class Panneau extends Canvas {
 			e.printStackTrace();
 		}
 		herbe = planche.getSubimage(1, 1, 32, 32);
-	    	
+
+		try {
+			planche = ImageIO.read(new File("src/images/zeldalike.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		zelda = planche.getSubimage(1, 1, 32, 32);
+
 	}
 	
 	public void paint(Graphics g)
@@ -75,10 +84,13 @@ public class Panneau extends Canvas {
 	    g.setColor(Color.BLACK);
 	    
 	    for(Cellule cell : graph.getModele().cellulesADessiner()){
-	    	if (cell!=null){
+	    	if (cell.type==Cellule.HERBE){
 	    		g.drawImage(herbe, cell.x * largeur_tuile, cell.y * largeur_tuile, null);
 	    	}
-	    		
+	    	if (cell.type==Cellule.ZELDA){
+	    		g.drawImage(zelda, cell.x * largeur_tuile, cell.y * largeur_tuile, null);
+	    	}
+
 	    	
 	    }
 

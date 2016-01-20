@@ -21,9 +21,10 @@ public class MapRectGrid extends Map {
 	public void init() {
 		for(int i=0;i<hauteur;i++){
 			for (int j=0;j<largeur;j++){
-				cells[i][j]= new Cellule(i,j);
+				cells[i][j]= new Cellule(i,j,"h");
 			}
 		}
+		cells[5][8] = new Cellule(5,8,"z");
 	}
 
 	@Override
@@ -34,6 +35,7 @@ public class MapRectGrid extends Map {
 				resultat[i*largeur+j] = cells[i][j];
 			}
 		}
+		
 
 		return resultat;
 	}
