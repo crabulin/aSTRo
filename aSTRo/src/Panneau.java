@@ -22,6 +22,7 @@ public class Panneau extends Canvas {
 	Graphiques graph ;
 	BufferStrategy bs;
 	BufferedImage herbe;
+	int largeur_tuile = 32;
 	
 	public Panneau(Graphiques graph)
 	{
@@ -72,20 +73,14 @@ public class Panneau extends Canvas {
 	    g.fillRect(0, 0, 800, 600);
 	    
 	    g.setColor(Color.BLACK);
-	    //Cellule t[] = graph.getModele().cellulesADessiner();
-	    Modele mod = graph.getModele();
-	    System.out.println(mod);
 	    
-//	    for(Cellule cell : graph.getModele().cellulesADessiner()){
-//	    	if (cell!=null){
-//	    		System.out.println("gg");
-//	    	}
-//	    		
+	    for(Cellule cell : graph.getModele().cellulesADessiner()){
+	    	if (cell!=null){
+	    		g.drawImage(herbe, cell.x * largeur_tuile, cell.y * largeur_tuile, null);
+	    	}
+	    		
 	    	
-//	    }
-	    g.drawImage(herbe, 21, 30, null);
-	    g.drawImage(herbe, 51, 30, null);
-	    g.drawImage(herbe, 61, 30, null);
+	    }
 
 		g.dispose();
 		bs.show();

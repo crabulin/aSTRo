@@ -1,5 +1,7 @@
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,7 +24,9 @@ public class GraphiquesAWT extends Graphiques {
 		fenetre = new JFrame();
 		fenetre.setTitle("aSTRo");
 		//fenetre.setSize(800,600);
-		fenetre.setLocationRelativeTo(null);
+		//fenetre.setLocationRelativeTo(null);
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		fenetre.setLocation(dim.width/2-fenetre.getSize().width/2, dim.height/2-fenetre.getSize().height/2);
 		fenetre.setResizable(false);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

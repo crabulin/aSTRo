@@ -10,6 +10,7 @@ public class Modele {
 	public Modele()
 	{
 		mapp = new MapRectGrid();
+		mapp.init();
 		
 	}
 
@@ -18,7 +19,6 @@ public class Modele {
 
 
 	public Cellule[] cellulesADessiner() {
-		System.out.println("hhhha");
 		return mapp.cellulesADessiner();
 		
 		

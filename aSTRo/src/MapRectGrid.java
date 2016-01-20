@@ -4,7 +4,7 @@ public class MapRectGrid extends Map {
 	private static final int largeur = 50 ; //nb cases en largeur
 	private static final int hauteur = 30 ; //nb cases en hauteur
 
-	Cellule cells[][] = new Cellule[largeur][hauteur];
+	Cellule cells[][] = new Cellule[hauteur][largeur];
 
 	
 	
