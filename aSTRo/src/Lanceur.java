@@ -7,6 +7,7 @@ public class Lanceur {
 	
 	Graphiques graphiques ;
 	Modele modele;
+	GameStateManager gsm ;
 	
 	public Lanceur()
 	{
@@ -14,7 +15,9 @@ public class Lanceur {
 		modele = new Modele();
 		graphiques = new GraphiquesAWT(modele);
 		graphiques.init();
-		graphiques.update(1L);
+		
+		gsm = new GameStateManager(graphiques);
+		gsm.mainloop();
 
 	}
 	

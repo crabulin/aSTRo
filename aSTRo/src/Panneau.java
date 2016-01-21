@@ -1,3 +1,4 @@
+import java.awt.AlphaComposite;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -47,7 +48,7 @@ public class Panneau extends Canvas {
 		herbe = planche.getSubimage(1, 1, 32, 32);
 
 		try {
-			planche = ImageIO.read(new File("src/images/zeldalike.png"));
+			planche = ImageIO.read(new File("src/images/zeldalike2.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,11 +59,11 @@ public class Panneau extends Canvas {
 	
 	public void paint(Graphics g)
 	{
-		render();
+		render(0L);
 		
 	}
 	
-	public void render()
+	public void render(long dt)
 	{
 		if (this.bs==null)
 		{
@@ -76,15 +77,16 @@ public class Panneau extends Canvas {
 	             RenderingHints.KEY_ANTIALIASING,
 	             RenderingHints.VALUE_ANTIALIAS_ON);
 	    g.setRenderingHints(rh);
+	    //g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
 		
 	    //efface l'ecran
-	    g.setColor(Color.blue);
+	    g.setColor(Color.CYAN);
 	    g.fillRect(0, 0, 800, 600);
 	    
 	    g.setColor(Color.BLACK);
 	    
 	    for(Cellule cell : graph.getModele().cellulesADessiner()){
-	    	if (cell.type==Cellule.HERBE){
+	    	if (cell.type!=null){
 	    		g.drawImage(herbe, cell.x * largeur_tuile, cell.y * largeur_tuile, null);
 	    	}
 	    	if (cell.type==Cellule.ZELDA){
@@ -93,7 +95,8 @@ public class Panneau extends Canvas {
 
 	    	
 	    }
-
+	    
+	    g.drawString((int) (1000000000.0/dt)+ " fps", 20, 20);
 		g.dispose();
 		bs.show();
 		

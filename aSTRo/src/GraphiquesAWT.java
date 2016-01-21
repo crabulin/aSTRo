@@ -49,7 +49,7 @@ public class GraphiquesAWT extends Graphiques {
 
 	@Override
 	void update(long dt) {
-		pan.render();
+		pan.render(dt);
 	}
 	@Override
 	Modele getModele() {
