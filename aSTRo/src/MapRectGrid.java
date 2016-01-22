@@ -24,7 +24,9 @@ public class MapRectGrid extends Map {
 				cells[i][j]= new Cellule(i,j,"h");
 			}
 		}
-		cells[5][8] = new Cellule(5,8,"z");
+		cells[10][10]= new Cellule(10,10,"m");
+		cells[11][10]= new Cellule(11,10,"m");
+		cells[12][10]= new Cellule(12,10,"m");
 	}
 
 	@Override

@@ -1,4 +1,3 @@
-import java.awt.AlphaComposite;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,40 +11,54 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-
 public class Panneau extends Canvas {
 
-	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	Graphiques graph ;
+	Graphiques graph;
 	BufferStrategy bs;
 	BufferedImage herbe;
+	BufferedImage mur;
 	BufferedImage zelda;
 	int largeur_tuile = 32;
-	
-	public Panneau(Graphiques graph)
-	{
+
+	// a voir
+	int nbFrames = 0;
+	long tempsCumule = 0;
+	long moyenne;
+
+	public Panneau(Graphiques graph) {
 		this.bs = null;
 		this.graph = graph;
+
 		Dimension size = new Dimension(800, 600);
 		setSize(size);
 		setPreferredSize(size);
 		setMinimumSize(size);
 		setMaximumSize(size);
 
-			
-		//chargement des images, provisoire
-		BufferedImage planche = null ;
+		// chargement des images, provisoire
+		BufferedImage planche = null;
+
+//		try {
+//			planche = ImageIO.read(new File("src/images/grassgrid.png"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		herbe = planche.getSubimage(1, 1, 32, 32);
+//		
+		
 		try {
-			planche = ImageIO.read(new File("src/images/grassgrid.png"));
+			planche = ImageIO.read(new File("src/images/rpg.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		herbe = planche.getSubimage(1, 1, 32, 32);
+		herbe = planche.getSubimage(256, 64, 32, 32);
+		mur = planche.getSubimage(160, 64, 32, 32);
 
 		try {
 			planche = ImageIO.read(new File("src/images/zeldalike2.png"));
@@ -55,54 +68,63 @@ public class Panneau extends Canvas {
 		}
 		zelda = planche.getSubimage(1, 1, 32, 32);
 
+		planche = null;
 	}
-	
-	public void paint(Graphics g)
-	{
+
+	public void paint(Graphics g) {
 		render(0L);
-		
+
 	}
-	
-	public void render(long dt)
-	{
-		if (this.bs==null)
-		{
+
+	public void render(long dt) {
+		if (this.bs == null) {
 			this.createBufferStrategy(3);
 			this.bs = this.getBufferStrategy();
 		}
-		
+
 		this.requestFocus();
 		Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-		RenderingHints rh = new RenderingHints(
-	             RenderingHints.KEY_ANTIALIASING,
-	             RenderingHints.VALUE_ANTIALIAS_ON);
-	    g.setRenderingHints(rh);
-	    //g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
-		
-	    //efface l'ecran
-	    g.setColor(Color.CYAN);
-	    g.fillRect(0, 0, 800, 600);
-	    
-	    g.setColor(Color.BLACK);
-	    
-	    for(Cellule cell : graph.getModele().cellulesADessiner()){
-	    	if (cell.type!=null){
-	    		g.drawImage(herbe, cell.x * largeur_tuile, cell.y * largeur_tuile, null);
-	    	}
-	    	if (cell.type==Cellule.ZELDA){
-	    		g.drawImage(zelda, cell.x * largeur_tuile, cell.y * largeur_tuile, null);
-	    	}
+		RenderingHints rh = new RenderingHints(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHints(rh);
 
-	    	
-	    }
-	    
-	    g.drawString((int) (1000000000.0/dt)+ " fps", 20, 20);
+		// efface l'ecran
+		g.setColor(Color.CYAN);
+		g.fillRect(0, 0, 800, 600);
+
+		g.setColor(Color.BLACK);
+
+		for (Cellule cell : graph.getModele().cellulesADessiner()) {
+			if (cell.type == Cellule.HERBE) {
+				g.drawImage(herbe, cell.x * largeur_tuile, cell.y
+						* largeur_tuile, null);
+			}
+			if (cell.type == Cellule.MUR) {
+				g.drawImage(mur, cell.x * largeur_tuile,
+						cell.y * largeur_tuile, null);
+			}
+
+		}
+
+		for (Entite ent : graph.getModele().entitesADessiner()) {
+			double x = ent.x + ent.action * ent.pourcentage / 100;
+			double y = ent.y;
+			g.drawImage(zelda, (int) (x * largeur_tuile), (int) y
+					* largeur_tuile, null);
+		}
+
+		tempsCumule += dt;
+		nbFrames++;
+		if (tempsCumule > 1000000000L) {
+			moyenne = 1000000000L * nbFrames / tempsCumule;
+			tempsCumule = 0;
+			nbFrames = 0;
+		}
+
+		g.drawString(moyenne + " fps", 20, 20);
 		g.dispose();
 		bs.show();
-		
-	}
-	
 
-	
-	
+	}
+
 }

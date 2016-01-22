@@ -1,7 +1,7 @@
 public class Cellule {
 
 	static final CellType HERBE = new CellType();
-	static final CellType ZELDA = new CellType();
+	static final CellType MUR = new CellType();
 	int x, y;
 	CellType type;
 
@@ -12,8 +12,8 @@ public class Cellule {
 		case "h":
 			this.type = HERBE;
 			break;
-		case "z":
-			this.type = ZELDA;
+		case "m":
+			this.type = MUR;
 			break;
 		}
 
