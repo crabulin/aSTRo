@@ -12,7 +12,7 @@ public class Modele {
 	{
 		mapp = new MapRectGrid();
 		mapp.init();
-		eg = new Entite_Gestionnaire();
+		eg = new Entite_Gestionnaire((MapRectGrid)mapp);
 		
 	}
 

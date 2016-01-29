@@ -1,4 +1,9 @@
 
 public class CellType {
+	boolean nonBloquant;
+	
+	public CellType(boolean nonBloquant) {
+		this.nonBloquant = nonBloquant ;
+	}
 
 }

@@ -33,7 +33,7 @@ public class Panneau extends Canvas {
 		this.bs = null;
 		this.graph = graph;
 
-		Dimension size = new Dimension(800, 600);
+		Dimension size = new Dimension(800, 640);
 		setSize(size);
 		setPreferredSize(size);
 		setMinimumSize(size);
@@ -90,7 +90,7 @@ public class Panneau extends Canvas {
 
 		// efface l'ecran
 		g.setColor(Color.CYAN);
-		g.fillRect(0, 0, 800, 600);
+		g.fillRect(0, 0, 800, 640);
 
 		g.setColor(Color.BLACK);
 

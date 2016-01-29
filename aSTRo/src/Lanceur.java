@@ -13,6 +13,9 @@ public class Lanceur {
 	{
 		System.out.println("debut");
 		modele = new Modele();
+		
+		
+		
 		graphiques = new GraphiquesAWT(modele);
 		graphiques.init();
 		
