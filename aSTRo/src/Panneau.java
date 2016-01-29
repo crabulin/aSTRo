@@ -107,10 +107,15 @@ public class Panneau extends Canvas {
 		}
 
 		for (Entite ent : graph.getModele().entitesADessiner()) {
-			double x = ent.x + ent.action * ent.pourcentage / 100;
+			double x = ent.x ;
 			double y = ent.y;
-			g.drawImage(zelda, (int) (x * largeur_tuile), (int) y
-					* largeur_tuile, null);
+			Action ac = ent.actionEnCours;
+			if (ac != null &&  ac.nom == "DE") {
+				x += ((DeplacementElementaire) ac).xDirection *ac.avancement / 100;
+				y += ((DeplacementElementaire) ac).yDirection *ac.avancement / 100;
+			}
+			g.drawImage(zelda, (int) (x * largeur_tuile), (int) (y
+					* largeur_tuile), null);
 		}
 
 		tempsCumule += dt;

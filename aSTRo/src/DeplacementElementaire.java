@@ -1,20 +1,38 @@
 
 public class DeplacementElementaire extends Action {
 
-	int xDepart ;
-	int yDepart ;
 	int xDirection ;
 	int yDirection ;
+	double vitesse;
+	Entite acteur;
 	
-	public DeplacementElementaire(int xDepart, int yDepart, int xDirection,
+	public DeplacementElementaire(Entite acteur, int xDirection,
 			int yDirection) {
 		
 		super();
-		nom = "depElem";
-		this.xDepart = xDepart;
-		this.yDepart = yDepart;
+		nom = "DE";
+		avancement = 0;
+		vitesse = 1.5 ;
+		
+		this.acteur = acteur;
 		this.xDirection = xDirection;
 		this.yDirection = yDirection;
+		
+	}
+
+	@Override
+	public boolean update(double dt) {
+				avancement += 100 * (((double)dt)/1000000000*vitesse);
+		if (avancement > 100) {
+			resolve();
+			return true;
+		}
+		return false;
+	}
+	
+	public void resolve() {
+		acteur.translation(xDirection,yDirection);
+		
 	}
 
 }

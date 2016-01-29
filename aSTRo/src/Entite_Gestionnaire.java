@@ -3,7 +3,13 @@ public class Entite_Gestionnaire {
 	Entite liste[];
 	
 	public Entite_Gestionnaire() {
-		liste = new Entite[] {new Zelda(5,3), new Zelda(10,5), new Zelda(2,7)};
+		Zelda z = new Zelda(5,3);
+		liste = new Entite[] {z};
+		z.actionsEnAttente.add(new DeplacementElementaire(z, 0, 1));
+		z.actionsEnAttente.add(new DeplacementElementaire(z, 0, 1));
+		z.actionsEnAttente.add(new DeplacementElementaire(z, 1, 1));
+		z.actionsEnAttente.add(new DeplacementElementaire(z, 1, 0));
+		z.actionsEnAttente.add(new DeplacementElementaire(z, 1, 0));
 	}
 	
 	public Entite[] getListeEntite() {
