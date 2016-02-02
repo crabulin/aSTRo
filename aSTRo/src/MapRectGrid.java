@@ -32,8 +32,9 @@ public class MapRectGrid extends Map {
 		cells[10][10] = new Cellule(10, 10, "m");
 		cells[11][10] = new Cellule(11, 10, "m");
 		cells[12][10] = new Cellule(12, 10, "m");
-		
-		
+		cells[10][11] = new Cellule(10, 11, "m");
+		cells[10][12] = new Cellule(10, 12, "m");
+				
 		
 		pf = new Pathfinder(new Graphe(this));
 	}
@@ -62,8 +63,8 @@ public class MapRectGrid extends Map {
 				{ -1, 0 }, { -1, -1 }, { 0, -1 }, { 1, -1 } };
 
 		for (int k = 0; k < 8; k++) {
-			int vy = cell.x + directions[k][0];
-			int vx = cell.y + directions[k][1];
+			int vx = cell.x + directions[k][0];
+			int vy = cell.y + directions[k][1];
 			if (0 <= vx && vx < largeur && 0 <= vy && vy < hauteur) {
 				if (cells[vx][vy].type.nonBloquant) {
 					voisines.add(cells[vx][vy]);
@@ -71,7 +72,7 @@ public class MapRectGrid extends Map {
 			}
 
 		}
-
+		System.out.println(cell + "->" + voisines );
 		return voisines;
 
 	}

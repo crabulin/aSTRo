@@ -3,7 +3,6 @@ import java.util.LinkedList;
 
 public abstract class Entite implements selectionnable {
 	int x,y ;
-	int action;
 	double pourcentage;
 	Action actionEnCours ;
 	LinkedList<Action> actionsEnAttente ;
@@ -32,8 +31,8 @@ public abstract class Entite implements selectionnable {
 	}
 	
 	
-	public int getAction() {
-		return action;
+	public Action getAction() {
+		return actionEnCours;
 	}
 
 	public double getPourcentage(){

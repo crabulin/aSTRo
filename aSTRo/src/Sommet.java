@@ -14,5 +14,9 @@ public class Sommet implements Comparable<Sommet>{
 	public int compareTo(Sommet s) {
 		return this.nom.compareTo(s.nom);
 	}
-	
+
+	@Override
+	public String toString(){
+		return "("+this.cellule.x+","+this.cellule.y+")";
+	}
 }

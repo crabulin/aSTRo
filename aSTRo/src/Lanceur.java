@@ -26,6 +26,7 @@ public class Lanceur {
 	
 	public static void main(String[] args) {
 
+		@SuppressWarnings("unused")
 		Lanceur lanceur = new Lanceur();
 		
 	}

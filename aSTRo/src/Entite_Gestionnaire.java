@@ -6,11 +6,11 @@ public class Entite_Gestionnaire {
 	MapRectGrid map;
 	
 	public Entite_Gestionnaire(MapRectGrid map) {
-		Zelda z = new Zelda(5,3);
+		Zelda z = new Zelda(0,0);
 		liste = new Entite[] {z};
 		this.map = map;
 		
-		LinkedList<DeplacementElementaire> route = map.routePlusCourte(z, map.cells[3][2], map.cells[10][15]);
+		LinkedList<DeplacementElementaire> route = map.routePlusCourte(z, map.cells[0][0], map.cells[11][11]);
 		for(DeplacementElementaire de : route){
 			z.actionsEnAttente.add(de);
 		}

@@ -5,11 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 
 public class Panneau extends Canvas {
 
@@ -18,10 +14,9 @@ public class Panneau extends Canvas {
 	 */
 	private static final long serialVersionUID = 1L;
 	Graphiques graph;
+	RessourcesGraphiques ressources = new RessourcesGraphiques();
 	BufferStrategy bs;
-	BufferedImage herbe;
-	BufferedImage mur;
-	BufferedImage zelda;
+	
 	int largeur_tuile = 32;
 
 	// a voir
@@ -39,36 +34,9 @@ public class Panneau extends Canvas {
 		setMinimumSize(size);
 		setMaximumSize(size);
 
-		// chargement des images, provisoire
-		BufferedImage planche = null;
 
-//		try {
-//			planche = ImageIO.read(new File("src/images/grassgrid.png"));
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		herbe = planche.getSubimage(1, 1, 32, 32);
-//		
 		
-		try {
-			planche = ImageIO.read(new File("src/images/rpg.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		herbe = planche.getSubimage(256, 64, 32, 32);
-		mur = planche.getSubimage(160, 64, 32, 32);
-
-		try {
-			planche = ImageIO.read(new File("src/images/zeldalike2.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		zelda = planche.getSubimage(1, 1, 32, 32);
-
-		planche = null;
+		
 	}
 
 	public void paint(Graphics g) {
@@ -96,12 +64,19 @@ public class Panneau extends Canvas {
 
 		for (Cellule cell : graph.getModele().cellulesADessiner()) {
 			if (cell.type == Cellule.HERBE) {
-				g.drawImage(herbe, cell.x * largeur_tuile, cell.y
+				g.drawImage(ressources.getSprite("herbe"), cell.x * largeur_tuile, cell.y
 						* largeur_tuile, null);
 			}
 			if (cell.type == Cellule.MUR) {
-				g.drawImage(mur, cell.x * largeur_tuile,
+				g.drawImage(ressources.getSprite("mur"), cell.x * largeur_tuile,
 						cell.y * largeur_tuile, null);
+			}
+			
+			
+			if (cell.objetStatique!=null){
+				g.drawImage(ressources.getSprite(cell.objetStatique.type), (int) (cell.x * largeur_tuile), (int) (cell.y
+						* largeur_tuile), null);
+				
 			}
 
 		}
@@ -114,7 +89,7 @@ public class Panneau extends Canvas {
 				x += ((DeplacementElementaire) ac).xDirection *ac.avancement / 100;
 				y += ((DeplacementElementaire) ac).yDirection *ac.avancement / 100;
 			}
-			g.drawImage(zelda, (int) (x * largeur_tuile), (int) (y
+			g.drawImage(ressources.getSprite("zelda"), (int) (x * largeur_tuile), (int) (y
 					* largeur_tuile), null);
 		}
 

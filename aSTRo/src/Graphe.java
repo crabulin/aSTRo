@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Graphe {
 
@@ -44,15 +45,20 @@ public class Graphe {
 		}
 
 		// remplissage des aretes
-		for (int x = 0; x < map.largeur; x++) {
-			for (int y = 0; y < map.hauteur; y++) {
-				ArrayList<Cellule> voisins = map.cellulesVoisines(cells[x][y]);
-				for (Cellule v : voisins) {
-					this.ajouterArete(sommets.get(cells[x][y].nom),
-							sommets.get(v.nom));
-				}
-			}
-		}
+		for(Map.Entry<String, Sommet>  entry : sommets.entrySet()) {
+			Sommet s = entry.getValue();
+			ArrayList<Cellule> voisins = map.cellulesVoisines(s.cellule);
+			
+			for (Cellule v : voisins) {
+				this.ajouterArete(sommets.get(s.cellule.nom),
+						sommets.get(v.nom));
+			}	
+		}	
+		
+		//debug
+//		for(Map.Entry<Sommet, ArrayList<Sommet>>  entry : listeAdj.entrySet()) {
+//			System.out.println(entry.getKey() + " : "+ entry.getValue().toString());
+//		}
 	}
 	
 
