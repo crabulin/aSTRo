@@ -40,6 +40,16 @@ public class RessourcesGraphiques {
 		setSprite("fgb",images[5]);
 		setSprite("fb",images[6]);
 		setSprite("fdb",images[7]);
+		
+		images = RessourcesGraphiques.charger_images("src/images/flechesRouges.png", 32,coord3 );
+		setSprite("frd",images[0]);
+		setSprite("frdh",images[1]);
+		setSprite("frh",images[2]);
+		setSprite("frgh",images[3]);
+		setSprite("frg",images[4]);
+		setSprite("frgb",images[5]);
+		setSprite("frb",images[6]);
+		setSprite("frdb",images[7]);
 	}
 
 	public static BufferedImage[] charger_images(String pathImage, int largeur,int[][] coordonnees){

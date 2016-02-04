@@ -29,13 +29,13 @@ public class Pathfinder {
 					
 					String direction = "f";
 					if(courant.cellule.x-voisin.cellule.x == 1)
-						direction += "d";
-					else if (courant.cellule.x-voisin.cellule.x == -1)
 						direction += "g";
+					else if (courant.cellule.x-voisin.cellule.x == -1)
+						direction += "d";
 					if(courant.cellule.y-voisin.cellule.y == 1)
-						direction += "b";
-					else if (courant.cellule.y-voisin.cellule.y == -1)
 						direction += "h";
+					else if (courant.cellule.y-voisin.cellule.y == -1)
+						direction += "b";
 					voisin.cellule.objetStatique = new EntiteStatique(direction);
 					
 							
@@ -51,9 +51,21 @@ public class Pathfinder {
 		// else
 		LinkedList<Sommet> chemin = new LinkedList<>();
 		courant = s2;
+		Sommet suivant = null;
 		while (courant != s1) {
 			chemin.addFirst(courant);
+			suivant = courant;
 			courant = predecesseur.get(courant);
+			String direction = "fr";
+			if(suivant.cellule.x-courant.cellule.x == 1)
+				direction += "d";
+			if(suivant.cellule.x-courant.cellule.x == -1)
+				direction += "g";
+			if(suivant.cellule.y-courant.cellule.y == 1)
+				direction += "b";
+			if(suivant.cellule.y-courant.cellule.y == -1)
+				direction += "h";
+			courant.cellule.objetStatique = new EntiteStatique(direction);
 		}
 		chemin.addFirst(s1); 
 		return chemin;

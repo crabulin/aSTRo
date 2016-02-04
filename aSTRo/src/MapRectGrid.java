@@ -34,6 +34,12 @@ public class MapRectGrid extends Map {
 		cells[12][10] = new Cellule(12, 10, "m");
 		cells[10][11] = new Cellule(10, 11, "m");
 		cells[10][12] = new Cellule(10, 12, "m");
+
+		for(int i=0;i<15 ; i++)
+			cells[i][5] = new Cellule(i, 5, "m");
+		
+		for(int i=0;i<20 ; i++)
+			cells[i+5][8] = new Cellule(i+5, 8, "m");
 				
 		
 		pf = new Pathfinder(new Graphe(this));
@@ -72,7 +78,6 @@ public class MapRectGrid extends Map {
 			}
 
 		}
-		System.out.println(cell + "->" + voisines );
 		return voisines;
 
 	}
