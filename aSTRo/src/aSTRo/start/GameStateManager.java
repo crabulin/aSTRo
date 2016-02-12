@@ -1,3 +1,7 @@
+package aSTRo.start;
+import aSTRo.modele.Modele;
+import aSTRo.vue.Graphiques;
+
 
 public class GameStateManager {
 

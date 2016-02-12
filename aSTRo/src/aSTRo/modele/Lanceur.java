@@ -1,3 +1,8 @@
+package aSTRo.modele;
+import aSTRo.start.GameStateManager;
+import aSTRo.vue.Graphiques;
+import aSTRo.vue.GraphiquesAWT;
+
 
 public class Lanceur {
 

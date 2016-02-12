@@ -1,3 +1,4 @@
+package aSTRo.modele;
 
 public class CellType {
 	boolean nonBloquant;

@@ -1,7 +1,9 @@
+package aSTRo.modele;
+
 
 public class Modele {
 	
-	Map mapp;
+	public Map mapp;
 	Entite_Gestionnaire eg;
 	
 	

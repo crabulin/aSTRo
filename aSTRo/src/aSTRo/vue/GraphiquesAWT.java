@@ -1,3 +1,5 @@
+package aSTRo.vue;
+
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -5,6 +7,10 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import aSTRo.modele.Cellule;
+import aSTRo.modele.Modele;
+
 
 
 
@@ -19,7 +25,7 @@ public class GraphiquesAWT extends Graphiques {
 		this.modele = modele ;
 	}
 	@Override
-	void init() {
+	public void init() {
 		// TODO Auto-generated method stub
 		fenetre = new JFrame();
 		fenetre.setTitle("aSTRo");
@@ -48,12 +54,16 @@ public class GraphiquesAWT extends Graphiques {
 	}
 
 	@Override
-	void update(long dt) {
+	public void update(long dt) {
 		pan.render(dt);
 	}
 	@Override
 	Modele getModele() {
 		return modele;	
+	}
+	@Override
+	public Cellule getCelluleDuClick(int x, int y) {
+		return pan.getCellule(x, y);
 	}
 	
 	

@@ -1,10 +1,12 @@
+package aSTRo.modele;
+
 import java.util.LinkedList;
 
 
-public abstract class Entite implements selectionnable {
-	int x,y ;
-	double pourcentage;
-	Action actionEnCours ;
+public abstract class Entite implements Selectionnable {
+	public int x,y ; 
+	public double pourcentage;
+	public Action actionEnCours ;
 	LinkedList<Action> actionsEnAttente ;
 
 	public Entite(int x, int y) {

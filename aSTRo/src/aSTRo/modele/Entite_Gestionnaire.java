@@ -1,4 +1,7 @@
+package aSTRo.modele;
+
 import java.util.LinkedList;
+
 
 
 public class Entite_Gestionnaire {

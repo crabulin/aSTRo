@@ -1,3 +1,5 @@
+package aSTRo.modele;
+
 
 public class Zelda extends Entite {
 

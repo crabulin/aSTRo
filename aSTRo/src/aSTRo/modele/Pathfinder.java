@@ -1,7 +1,9 @@
-import java.util.ArrayList;
+package aSTRo.modele;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeSet;
+
 
 public class Pathfinder {
 
@@ -36,7 +38,7 @@ public class Pathfinder {
 						direction += "h";
 					else if (courant.cellule.y-voisin.cellule.y == -1)
 						direction += "b";
-					voisin.cellule.objetStatique = new EntiteStatique(direction);
+					voisin.cellule.setObjetStatique(new EntiteStatique(direction));
 					
 							
 					connus.add(voisin);
@@ -65,7 +67,7 @@ public class Pathfinder {
 				direction += "b";
 			if(suivant.cellule.y-courant.cellule.y == -1)
 				direction += "h";
-			courant.cellule.objetStatique = new EntiteStatique(direction);
+			courant.cellule.setObjetStatique(new EntiteStatique(direction));
 		}
 		chemin.addFirst(s1); 
 		return chemin;

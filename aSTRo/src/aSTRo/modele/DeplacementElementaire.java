@@ -1,9 +1,11 @@
+package aSTRo.modele;
+
 
 public class DeplacementElementaire extends Action {
 
-	int xDirection ;
-	int yDirection ;
-	double vitesse;
+	public int xDirection ;
+	public int yDirection ;
+	public double vitesse;
 	Entite acteur;
 	
 	public DeplacementElementaire(Entite acteur, int xDirection,

@@ -1,6 +1,7 @@
+package aSTRo.modele;
 
 public class EntiteStatique {
-	String type;
+	public String type;
 
 	public EntiteStatique(String type) {
 		super();

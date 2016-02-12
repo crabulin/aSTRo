@@ -1,6 +1,8 @@
+package aSTRo.modele;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 
 public class Graphe {
 
@@ -38,7 +40,7 @@ public class Graphe {
 		// remplissage des sommets
 		for (int x = 0; x < map.largeur; x++) {
 			for (int y = 0; y < map.hauteur; y++) {
-				if (cells[x][y].type.nonBloquant) {
+				if (cells[x][y].getType().nonBloquant) {
 					this.ajouterSommet(cells[x][y].nom, cells[x][y]);
 				}
 			}

@@ -1,7 +1,9 @@
+package aSTRo.modele;
+
 
 public class Sommet implements Comparable<Sommet>{
 	String nom ;
-	Cellule cellule ;
+	public Cellule cellule ;
 
 	public Sommet(String nom, Cellule c) {
 		super();

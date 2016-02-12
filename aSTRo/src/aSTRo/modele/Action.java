@@ -1,7 +1,8 @@
+package aSTRo.modele;
 
 public abstract class Action {
-	String nom ;
-	double avancement ;
+	public String nom ;
+	public double avancement ;
 	
 	public abstract boolean update(double dt);
 }

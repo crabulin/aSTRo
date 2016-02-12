@@ -1,6 +1,10 @@
+package aSTRo.modele;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
+
+
 
 public class MapRectGrid extends Map {
 
@@ -72,7 +76,7 @@ public class MapRectGrid extends Map {
 			int vx = cell.x + directions[k][0];
 			int vy = cell.y + directions[k][1];
 			if (0 <= vx && vx < largeur && 0 <= vy && vy < hauteur) {
-				if (cells[vx][vy].type.nonBloquant) {
+				if (cells[vx][vy].getType().nonBloquant) {
 					voisines.add(cells[vx][vy]);
 				}
 			}
@@ -97,5 +101,13 @@ public class MapRectGrid extends Map {
 		}
 		
 		return deplacements;
+	}
+
+	@Override
+	public Cellule getCellule(int x, int y) {
+		if (0<=x && x<largeur && 0<=y && y<hauteur)
+			return cells[x][y];
+		else
+			return null;
 	}
 }

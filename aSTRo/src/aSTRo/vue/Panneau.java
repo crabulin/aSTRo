@@ -1,3 +1,5 @@
+package aSTRo.vue;
+
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -5,6 +7,12 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferStrategy;
+
+import aSTRo.modele.Action;
+import aSTRo.modele.Cellule;
+import aSTRo.modele.DeplacementElementaire;
+import aSTRo.modele.Entite;
+
 
 
 public class Panneau extends Canvas {
@@ -16,6 +24,7 @@ public class Panneau extends Canvas {
 	Graphiques graph;
 	RessourcesGraphiques ressources = new RessourcesGraphiques();
 	BufferStrategy bs;
+	InputGestionnaire input ;
 	
 	int largeur_tuile = 32;
 
@@ -23,12 +32,20 @@ public class Panneau extends Canvas {
 	int nbFrames = 0;
 	long tempsCumule = 0;
 	long moyenne;
+	int largeur = 800;
+	int hauteur = 600;
 
-	public Panneau(Graphiques graph) {
+	public Panneau(Graphiques graphiq) {
 		this.bs = null;
-		this.graph = graph;
+		this.graph = graphiq;
 
-		Dimension size = new Dimension(800, 640);
+		this.input = new InputGestionnaire(graphiq);
+		addKeyListener(input);
+		addFocusListener(input);
+		addMouseListener(input);
+		addMouseMotionListener(input);
+		
+		Dimension size = new Dimension(largeur, hauteur);
 		setSize(size);
 		setPreferredSize(size);
 		setMinimumSize(size);
@@ -63,18 +80,18 @@ public class Panneau extends Canvas {
 		g.setColor(Color.BLACK);
 
 		for (Cellule cell : graph.getModele().cellulesADessiner()) {
-			if (cell.type == Cellule.HERBE) {
+			if (cell.getType() == Cellule.HERBE) {
 				g.drawImage(ressources.getSprite("herbe"), cell.x * largeur_tuile, cell.y
 						* largeur_tuile, null);
 			}
-			if (cell.type == Cellule.MUR) {
+			if (cell.getType() == Cellule.MUR) {
 				g.drawImage(ressources.getSprite("mur"), cell.x * largeur_tuile,
 						cell.y * largeur_tuile, null);
 			}
 			
 			
-			if (cell.objetStatique!=null){
-				g.drawImage(ressources.getSprite(cell.objetStatique.type), (int) (cell.x * largeur_tuile), (int) (cell.y
+			if (cell.getObjetStatique()!=null){
+				g.drawImage(ressources.getSprite(cell.getObjetStatique().type), (int) (cell.x * largeur_tuile), (int) (cell.y
 						* largeur_tuile), null);
 				
 			}
@@ -105,6 +122,12 @@ public class Panneau extends Canvas {
 		g.dispose();
 		bs.show();
 
+	}
+
+	public Cellule getCellule(int x, int y) {
+		int xc = x/largeur_tuile;
+		int yc=y /largeur_tuile;
+		return graph.getModele().mapp.getCellule(xc, yc);
 	}
 
 }
