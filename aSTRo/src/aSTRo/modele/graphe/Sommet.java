@@ -1,4 +1,6 @@
-package aSTRo.modele;
+package aSTRo.modele.graphe;
+
+import aSTRo.modele.Cellule;
 
 
 public class Sommet implements Comparable<Sommet>{

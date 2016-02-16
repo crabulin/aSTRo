@@ -40,6 +40,14 @@ public abstract class Entite implements Selectionnable {
 	public double getPourcentage(){
 		return pourcentage;
 	}
+	
+	public void viderActionsEnAttente(){
+		actionsEnAttente.clear();
+	}
+	
+	public void ajouterAction(Action ac) {
+		actionsEnAttente.add(ac);
+	}
 
 	public void translation(int xDirection, int yDirection) {
 		this.x += xDirection;

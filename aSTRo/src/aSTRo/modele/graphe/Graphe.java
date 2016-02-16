@@ -1,7 +1,10 @@
-package aSTRo.modele;
+package aSTRo.modele.graphe;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import aSTRo.modele.Cellule;
+import aSTRo.modele.MapRectGrid;
 
 
 public class Graphe {
@@ -57,11 +60,10 @@ public class Graphe {
 			}	
 		}	
 		
-		//debug
-//		for(Map.Entry<Sommet, ArrayList<Sommet>>  entry : listeAdj.entrySet()) {
-//			System.out.println(entry.getKey() + " : "+ entry.getValue().toString());
-//		}
 	}
 	
+	public Sommet getSommet(String nom) {
+		return sommets.get(nom);
+	}
 
 }

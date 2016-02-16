@@ -2,13 +2,13 @@ package aSTRo.modele;
 
 public class Cellule {
 
-	public static final CellType HERBE = new CellType(true);
-	public static final CellType MUR = new CellType(false);
-	public static final CellType FD = new CellType(false);
+	public static final CellType HERBE = new CellType(true,1);
+	public static final CellType MUR = new CellType(false,-1);
+	public static final CellType FD = new CellType(false,0);
 	public int x;
 	public int y;
-	String nom;
-	private CellType type;
+	public String nom;
+	public CellType type;
 	private EntiteStatique objetStatique = null;
 
 

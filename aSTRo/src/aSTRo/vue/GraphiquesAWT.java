@@ -17,12 +17,13 @@ import aSTRo.modele.Modele;
 public class GraphiquesAWT extends Graphiques {
 
 	JFrame fenetre ;
-	Modele modele ;
+	public Modele modele ;
 	JPanel controlPanel;
 	Panneau pan;
 	
 	public GraphiquesAWT(Modele modele){
 		this.modele = modele ;
+		System.out.println("la" + modele);
 	}
 	@Override
 	public void init() {

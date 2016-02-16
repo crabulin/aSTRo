@@ -1,24 +1,21 @@
 package aSTRo.modele;
 
-import java.util.LinkedList;
-
 
 
 public class Entite_Gestionnaire {
 	Entite liste[];
 	MapRectGrid map;
+	Entite selection;
 	
 	public Entite_Gestionnaire(MapRectGrid map) {
 		int x=22;
 		int y=0;
 		Zelda z = new Zelda(x,y);
+		selection=z;
 		liste = new Entite[] {z};
 		this.map = map;
 		
-		LinkedList<DeplacementElementaire> route = map.routePlusCourte(z, map.cells[x][y], map.cells[11][11]);
-		for(DeplacementElementaire de : route){
-			z.actionsEnAttente.add(de);
-		}
+		
 	}
 	
 	public Entite[] getListeEntite() {
@@ -30,5 +27,19 @@ public class Entite_Gestionnaire {
 			ent.update(dt);
 		}
 		
+	}
+	
+	public Entite getSelection() {
+		return selection;
+	}
+	
+	//implementation trop basique !
+	public Entite getEntiteAuxCoordonnees(int x, int y) {
+		System.out.println("test");
+		for(Entite ent : liste) {
+			if (ent.x==x && ent.y == y)
+				return ent;
+		}
+		return null;
 	}
 }

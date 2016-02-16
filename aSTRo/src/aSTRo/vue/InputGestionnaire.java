@@ -6,20 +6,26 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.LinkedList;
 
 import aSTRo.modele.Cellule;
+import aSTRo.modele.DeplacementElementaire;
+import aSTRo.modele.Entite;
+import aSTRo.modele.Modele;
 import aSTRo.modele.Selectionnable;
 
 
 public class InputGestionnaire implements KeyListener, FocusListener,
 		MouseListener, MouseMotionListener {
 
-	Selectionnable selection = null;
+	//Selectionnable selection = null;
 	Graphiques graphiq;
+	Modele mod;
 
 	public InputGestionnaire(Graphiques graphiq) {
 		super();
 		this.graphiq = graphiq;
+		mod = graphiq.getModele();
 	}
 
 	@Override
@@ -38,7 +44,17 @@ public class InputGestionnaire implements KeyListener, FocusListener,
 	public void mouseClicked(MouseEvent arg0) {
 		//on détermine la cellule dans laquelle le clic a eu lieu
 		Cellule cel = graphiq.getCelluleDuClick(arg0.getX(), arg0.getY());
-		System.out.println(cel.x+" "+cel.y);
+		//l'entite selectionnee va se diriger cers cette cellule
+		Entite ent = mod.eg.getSelection();
+		if (ent!=null) {
+			ent.viderActionsEnAttente();
+			mod.mapp.supprimerObjetsStatiques();
+			
+			LinkedList<DeplacementElementaire> route = mod.mapp.routePlusCourte(ent,mod.mapp.getCellule(ent.x,ent.y), cel);
+			for(DeplacementElementaire de : route){
+				ent.ajouterAction(de);
+			}
+		}
 
 	}
 

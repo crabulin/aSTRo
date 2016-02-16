@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import aSTRo.modele.graphe.Graphe;
+import aSTRo.modele.graphe.Pathfinder;
+import aSTRo.modele.graphe.Sommet;
+
 
 
 public class MapRectGrid extends Map {
 
-	final int largeur = 25; // nb cases en largeur
-	final int hauteur = 20; // nb cases en hauteur
+	public final int largeur = 25; // nb cases en largeur
+	public final int hauteur = 20; // nb cases en hauteur
 
 	Cellule cells[][] = new Cellule[largeur][hauteur];
 	Pathfinder pf;
@@ -85,11 +89,12 @@ public class MapRectGrid extends Map {
 		return voisines;
 
 	}
-	
+
+	@Override
 	public LinkedList<DeplacementElementaire> routePlusCourte(Entite acteur, Cellule c1, Cellule c2){
 		LinkedList<DeplacementElementaire> deplacements = new LinkedList<DeplacementElementaire>();
 		
-		LinkedList<Sommet> chemin = pf.cheminLargeur(pf.g.sommets.get(c1.nom), pf.g.sommets.get(c2.nom));
+		LinkedList<Sommet> chemin = pf.cheminLargeur(pf.g.getSommet(c1.nom), pf.g.getSommet(c2.nom));
 		Iterator<Sommet> it = chemin.iterator();
 		Cellule precedente = null;
 		
@@ -109,5 +114,25 @@ public class MapRectGrid extends Map {
 			return cells[x][y];
 		else
 			return null;
+	}
+
+	@Override
+	public void supprimerObjetsStatiques() {
+		for (int x = 0; x < largeur; x++) {
+			for (int y = 0; y < hauteur; y++) {
+				cells[x][y].setObjetStatique(null);
+			}
+		}
+
+	
+	}
+
+	@Override
+	public double getDistance(int x1, int y1, int x2, int y2) {
+		double result = (cells[x1][y1].type.coutMouvement+ cells[x2][y2].type.coutMouvement)/2;
+		if(x1!=x2 && y1!=y2)
+			result *=1.41;
+		return result;
+		
 	}
 }

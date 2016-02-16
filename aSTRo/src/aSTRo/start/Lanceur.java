@@ -1,5 +1,5 @@
-package aSTRo.modele;
-import aSTRo.start.GameStateManager;
+package aSTRo.start;
+import aSTRo.modele.Modele;
 import aSTRo.vue.Graphiques;
 import aSTRo.vue.GraphiquesAWT;
 

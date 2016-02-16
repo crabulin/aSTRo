@@ -1,13 +1,15 @@
-package aSTRo.modele;
+package aSTRo.modele.graphe;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+import aSTRo.modele.EntiteStatique;
+
 
 public class Pathfinder {
 
-	Graphe g;
+	public Graphe g;
 
 	public Pathfinder(Graphe grapheCarte) {
 		super();
@@ -15,6 +17,7 @@ public class Pathfinder {
 	}
 
 	public LinkedList<Sommet> cheminLargeur(Sommet s1, Sommet s2) {
+		
 		HashMap<Sommet, Sommet> predecesseur = new HashMap<>();
 		TreeSet<Sommet> connus = new TreeSet<>();
 		LinkedList<Sommet> attente = new LinkedList<>();
@@ -22,8 +25,8 @@ public class Pathfinder {
 
 		Sommet courant = null;
 
-//		while (!attente.isEmpty() && courant != s2) {
-		while (!attente.isEmpty() ) {
+		while (!attente.isEmpty() && courant != s2) {
+//		while (!attente.isEmpty() ) {
 			courant = attente.removeFirst();
 			for (Sommet voisin : g.listeAdj.get(courant)) {
 				if (!connus.contains(voisin)) {

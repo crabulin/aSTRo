@@ -4,7 +4,7 @@ package aSTRo.modele;
 public class Modele {
 	
 	public Map mapp;
-	Entite_Gestionnaire eg;
+	public Entite_Gestionnaire eg;
 	
 	
 	
