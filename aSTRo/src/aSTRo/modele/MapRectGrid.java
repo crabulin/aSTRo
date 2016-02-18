@@ -5,7 +5,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import aSTRo.modele.graphe.Graphe;
-import aSTRo.modele.graphe.Pathfinder;
+import aSTRo.modele.graphe.Parcours;
+import aSTRo.modele.graphe.ParcoursEnLargeur;
 import aSTRo.modele.graphe.Sommet;
 
 
@@ -21,6 +22,12 @@ public class MapRectGrid extends Map {
 	public Cellule getCells(int x, int y) {
 		return cells[x][y];
 	}
+	
+	public Cellule getCells(int[] coord) {
+		return cells[coord[0]][coord[1]];
+	}
+
+
 
 	@Override
 	public void update(long dt) {
@@ -50,7 +57,7 @@ public class MapRectGrid extends Map {
 			cells[i+5][8] = new Cellule(i+5, 8, "m");
 				
 		
-		pf = new Pathfinder(new Graphe(this));
+		pf = new Pathfinder(this);
 	}
 
 	@Override
@@ -94,7 +101,9 @@ public class MapRectGrid extends Map {
 	public LinkedList<DeplacementElementaire> routePlusCourte(Entite acteur, Cellule c1, Cellule c2){
 		LinkedList<DeplacementElementaire> deplacements = new LinkedList<DeplacementElementaire>();
 		
-		LinkedList<Sommet> chemin = pf.cheminLargeur(pf.g.getSommet(c1.nom), pf.g.getSommet(c2.nom));
+		pf.g.setParcours((Parcours) new ParcoursEnLargeur(pf.g, pf.g.getSommetParNom(c1.nom)));
+		
+		LinkedList<Sommet> chemin = pf.cheminLargeur(pf.g.getSommetParNom(c1.nom), pf.g.getSommetParNom(c2.nom));
 		Iterator<Sommet> it = chemin.iterator();
 		Cellule precedente = null;
 		

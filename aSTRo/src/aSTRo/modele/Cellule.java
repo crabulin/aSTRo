@@ -4,7 +4,6 @@ public class Cellule {
 
 	public static final CellType HERBE = new CellType(true,1);
 	public static final CellType MUR = new CellType(false,-1);
-	public static final CellType FD = new CellType(false,0);
 	public int x;
 	public int y;
 	public String nom;
@@ -22,9 +21,6 @@ public class Cellule {
 			break;
 		case "m":
 			this.setType(MUR);
-			break;
-		case "fd":
-			this.setType(FD);
 			break;
 		}
 

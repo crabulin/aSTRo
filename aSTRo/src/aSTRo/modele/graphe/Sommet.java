@@ -1,26 +1,22 @@
 package aSTRo.modele.graphe;
 
-import aSTRo.modele.Cellule;
-
-
 public class Sommet implements Comparable<Sommet>{
-	String nom ;
-	public Cellule cellule ;
+	public String nom ;
 
-	public Sommet(String nom, Cellule c) {
+	public Sommet(String nom) {
 		super();
 		this.nom = nom;
-		this.cellule = c;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "s("+nom+")";
+	}
 
 	@Override
 	public int compareTo(Sommet s) {
-		return this.nom.compareTo(s.nom);
+		return this.nom.compareTo(((Sommet)s).nom);
 	}
 
-	@Override
-	public String toString(){
-		return "("+this.cellule.x+","+this.cellule.y+")";
-	}
+
 }

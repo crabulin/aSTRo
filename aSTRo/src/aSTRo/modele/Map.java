@@ -2,7 +2,6 @@ package aSTRo.modele;
 
 import java.util.LinkedList;
 
-import aSTRo.modele.graphe.Pathfinder;
 
 
 public abstract class Map {
