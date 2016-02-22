@@ -70,6 +70,12 @@ public class BellmanFord extends Parcours {
 		
 		return chemin;
 	}
+
+	@Override
+	public double getDistance(Sommet s) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 	

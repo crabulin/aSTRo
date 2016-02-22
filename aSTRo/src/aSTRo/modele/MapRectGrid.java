@@ -19,12 +19,16 @@ public class MapRectGrid extends Map {
 	Cellule cells[][] = new Cellule[largeur][hauteur];
 	Pathfinder pf;
 
-	public Cellule getCells(int x, int y) {
+	public Cellule getCell(int x, int y) {
 		return cells[x][y];
 	}
 	
-	public Cellule getCells(int[] coord) {
+	public Cellule getCell(int[] coord) {
 		return cells[coord[0]][coord[1]];
+	}
+	
+	public Cellule getCell(Sommet v) {
+		return getCell(pf.getCoordonneesSommet(v));
 	}
 
 
@@ -107,10 +111,10 @@ public class MapRectGrid extends Map {
 		Iterator<Sommet> it = chemin.iterator();
 		Cellule precedente = null;
 		
-		Cellule courante = it.next().cellule;
+		Cellule courante = getCell(it.next());
 		while (it.hasNext()){
 			precedente = courante;
-			courante=it.next().cellule;
+			courante=getCell(it.next());
 			deplacements.add(new DeplacementElementaire(acteur, courante.x-precedente.x, courante.y-precedente.y));
 		}
 		

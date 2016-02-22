@@ -49,6 +49,10 @@ public class Graphe {
 		return parcours.getDistance(s);
 	}
 	
+	public Sommet getPredecesseur(Sommet s){
+		return parcours.getPredecesseur(s);
+	}
+	
 	
 
 	/**

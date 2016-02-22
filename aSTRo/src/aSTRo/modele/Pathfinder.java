@@ -123,11 +123,11 @@ public class Pathfinder {
 		int[] coor = new int[2];
 		String[] split = s.nom.split(" ");
 		coor[0] = Integer.parseInt(split[0]);
-		coor[1] = Integer.parseInt(split[0]);
+		coor[1] = Integer.parseInt(split[1]);
 		return coor;
 	}
 	
-	public LinkedList<Sommet> routePlusCourte(Entite acteur, Cellule c1, Cellule c2){
+	public LinkedList<DeplacementElementaire> routePlusCourte(Entite acteur, Cellule c1, Cellule c2){
 		LinkedList<DeplacementElementaire> deplacements = new LinkedList<DeplacementElementaire>();
 		
 		
@@ -136,10 +136,10 @@ public class Pathfinder {
 		Cellule precedente = null;
 	
 		
-		Cellule courante = map.getCells( getCoordonneesSommet(it.next()));
+		Cellule courante = map.getCell( getCoordonneesSommet(it.next()));
 		while (it.hasNext()) {
 			precedente = courante;
-			courante= map.getCells( getCoordonneesSommet(it.next()));
+			courante= map.getCell( getCoordonneesSommet(it.next()));
 			deplacements.add(new DeplacementElementaire(acteur, courante.x-precedente.x, courante.y-precedente.y));
 		}
 		

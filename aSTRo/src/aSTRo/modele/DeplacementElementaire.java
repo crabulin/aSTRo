@@ -14,7 +14,7 @@ public class DeplacementElementaire extends Action {
 		super();
 		nom = "DE";
 		avancement = 0;
-		vitesse = 1.5 ;
+		vitesse = 4.5 ;
 		
 		this.acteur = acteur;
 		this.xDirection = xDirection;
