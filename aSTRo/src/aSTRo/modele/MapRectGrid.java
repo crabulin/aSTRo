@@ -48,18 +48,16 @@ public class MapRectGrid extends Map {
 				cells[x][y] = new Cellule(x, y, "h");
 			}
 		}
-		cells[10][10] = new Cellule(10, 10, "m");
-		cells[11][10] = new Cellule(11, 10, "m");
-		cells[12][10] = new Cellule(12, 10, "m");
-		cells[10][11] = new Cellule(10, 11, "m");
-		cells[10][12] = new Cellule(10, 12, "m");
 
-		for(int i=0;i<15 ; i++)
-			cells[i][5] = new Cellule(i, 5, "m");
 		
-		for(int i=0;i<20 ; i++)
+		for(int i=0;i<10 ; i++)
 			cells[i+5][8] = new Cellule(i+5, 8, "m");
+		
+			for(int i=0;i<10 ; i++)
+			cells[i+5][12] = new Cellule(i+5, 12, "m");
 				
+		for(int i=0;i<3 ; i++)
+			cells[14][i+9] = new Cellule(14, i+9, "m");
 		
 		pf = new Pathfinder(this);
 	}

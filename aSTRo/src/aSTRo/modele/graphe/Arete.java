@@ -3,7 +3,7 @@ package aSTRo.modele.graphe;
 public class Arete {
 	Sommet s1;
 	Sommet s2;
-	double longueur =1;
+	double longueur;
 	boolean orientee;
 	
 	public Arete(Sommet s1, Sommet s2, boolean orientee) {
@@ -11,6 +11,7 @@ public class Arete {
 		this.s1 = s1;
 		this.s2 = s2;
 		this.orientee = orientee;
+		this.longueur=1;
 	}
 	
 	

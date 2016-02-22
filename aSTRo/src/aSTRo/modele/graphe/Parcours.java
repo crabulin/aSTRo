@@ -19,7 +19,7 @@ public abstract class Parcours {
 	 * Le sommet depuis lequel le parcours sera effectué
 	 */
 	Sommet depart;
-	
+	Sommet destination;
 	/**
 	 *Predecesseurs dans l'arborescence de parcours 
 	 */
@@ -71,13 +71,17 @@ public abstract class Parcours {
 	 */
 	public abstract LinkedList<Sommet> plusCourtChemin(Sommet dest);
 
-	public Parcours(Graphe graphe, Sommet depart) {
+	public Parcours(Graphe graphe, Sommet depart, Sommet destination) {
 		super();
 		this.graphe = graphe;
 		this.depart = depart;
+		this.destination = destination;
 		this.sommetsRencontres=new TreeSet<Sommet>();
 	}
-
+	
+	public Parcours(Graphe graphe, Sommet depart) {
+		this(graphe,depart,null);
+		}
 
 	public abstract double getDistance(Sommet s) ;
 	

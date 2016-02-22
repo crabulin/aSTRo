@@ -46,7 +46,7 @@ public class InputGestionnaire implements KeyListener, FocusListener,
 		Cellule cel = graphiq.getCelluleDuClick(arg0.getX(), arg0.getY());
 		//l'entite selectionnee va se diriger cers cette cellule
 		Entite ent = mod.eg.getSelection();
-		if (ent!=null) {
+		if (ent!=null && cel.type.nonBloquant) {
 			ent.viderActionsEnAttente();
 			mod.mapp.supprimerObjetsStatiques();
 			

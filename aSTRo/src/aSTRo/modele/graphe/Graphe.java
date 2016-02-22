@@ -8,11 +8,12 @@ import java.util.HashMap;
 
 
 
+
 /**
  * Graphe est une classe permettant de gérer les graphes orientés et non orientés
  * @author david
  */
-public class Graphe {
+public class Graphe extends GrapheAbstrait{
 	/**
 	 *L'ensemble des sommets, indexés par leur nom (String) 
 	 */
@@ -34,23 +35,36 @@ public class Graphe {
 	 * par rapport à la liste d'aretes listeAretes
 	 */
 	private boolean listeAdjAJour = false; 
-	
+
+	/**
+	 * parcours attaché au graphe
+	 */
 	private Parcours parcours;
 	
+	@Override
 	public void setParcours(Parcours parcours) {
 		this.parcours = parcours;
 	}
 	
-	public void lancerParcours() {
-		parcours.parcourir();
-	}
+
 	
+	/**renvoie la distance du sommet de depart du parcours a un sommet
+	 * une fois le parcours effectué 
+	 * @param s
+	 * @return
+	 */
 	public double getDistance(Sommet s){
 		return parcours.getDistance(s);
 	}
 	
+	@Override
 	public Sommet getPredecesseur(Sommet s){
 		return parcours.getPredecesseur(s);
+	}
+
+	@Override
+	public HashMap<Sommet, Sommet> getPredecesseurMap() {
+		return parcours.getPredecesseurMap();
 	}
 	
 	
@@ -59,6 +73,7 @@ public class Graphe {
 	 * Construit un graphe vide
 	 * La liste d'adjacence n'est pas calculée 
 	 */
+	
 	public Graphe(){
 		sommets = new HashMap<>();
 		listeAretes = new ArrayList<Arete>();
@@ -120,6 +135,7 @@ public class Graphe {
 		listeAdjAJour=false;
 	}
 	
+	@Override
 	public void ajouterSommet(String nom) {
 		ajouterSommet(new Sommet(nom));
 	}
@@ -129,6 +145,7 @@ public class Graphe {
 	 * @param nom
 	 * @return Sommet
 	 */
+	@Override
 	public Sommet getSommetParNom(String nom) {
 		Sommet s = sommets.get(nom);
 		if (s==null) {
@@ -164,6 +181,12 @@ public class Graphe {
 		return voisins;
 	}
 	
+	public ArrayList<Arete> getAretesIncidentes(Sommet s) {
+		//si la liste d'adjacence n'est pas à jour, il faut la recalculer
+		if (!listeAdjAJour)
+			initListeAdj();
+		return listeAdj.get(s);
+	}
 	
 	/**
 	 * Met a jour la liste d'adjacence 
@@ -187,11 +210,14 @@ public class Graphe {
 	 * @param s1
 	 * @param s2
 	 */
+	
+	@Override
 	public void ajouterArete(Sommet s1, Sommet s2) {
 		listeAretes.add(new Arete(s1, s2, false));
 		listeAdjAJour=false;
 	}
 	
+	@Override
 	public void ajouterArete(Sommet s1, Sommet s2, Double l) {
 		listeAretes.add(new Arete(s1, s2, l, false));
 		listeAdjAJour=false;
@@ -225,6 +251,12 @@ public class Graphe {
 
 	public ArrayList<Arete> getListeAretes() {
 		return listeAretes;
+	}
+
+	@Override
+	public void lancerParcours() {
+		parcours.parcourir();
+		
 	}
 
 }

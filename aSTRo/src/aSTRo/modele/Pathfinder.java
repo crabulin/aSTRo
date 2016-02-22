@@ -4,9 +4,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Map.Entry;
 import java.util.TreeSet;
 
 import aSTRo.modele.graphe.Arete;
+import aSTRo.modele.graphe.Astar;
+import aSTRo.modele.graphe.BellmanFord;
+import aSTRo.modele.graphe.Dijkstra;
 import aSTRo.modele.graphe.Graphe;
 import aSTRo.modele.graphe.Parcours;
 import aSTRo.modele.graphe.ParcoursEnLargeur;
@@ -42,8 +46,15 @@ public class Pathfinder {
 					ArrayList<Cellule> voisins = map
 							.cellulesVoisines(cells[x][y]);
 					for (Cellule v : voisins) {
-						g.ajouterArete(g.getSommetParNom(cells[x][y].nom),
-								g.getSommetParNom(v.nom));
+						double longueur;
+						if(Math.abs(v.x-x)+Math.abs(v.y-y)==1)
+							longueur = 1;
+						else
+							longueur = 1.41;
+						Sommet s1 = g.getSommetParNom(cells[x][y].nom);
+						Sommet s2 = g.getSommetParNom(v.nom);
+						g.ajouterArete(s1,s2,longueur);
+								
 					}
 
 				}
@@ -54,51 +65,41 @@ public class Pathfinder {
 
 	public LinkedList<Sommet> cheminLargeur(Sommet s1, Sommet s2) {
 
-		HashMap<Sommet, Sommet> predecesseur = new HashMap<>();
-		TreeSet<Sommet> connus = new TreeSet<>();
-		LinkedList<Sommet> attente = new LinkedList<>();
-		attente.addLast(s1);
+		g.setParcours(new Astar(g, s1, s2));
+		// g.setParcours(new ParcoursEnLargeur(g, s1, null));
+		g.lancerParcours();
 
-		Sommet courant = null;
+		for (Entry<Sommet, Sommet> entry : g.getPredecesseurMap().entrySet())
+		{
+		int coordCourant[] = getCoordonneesSommet(entry.getKey());
+		int coordPred[] = getCoordonneesSommet(entry.getValue());
+		
+//		for (Sommet s : g.getListeSommet()) {
+//			if (g.getPredecesseur(s) != null) {
+//				int coordCourant[] = getCoordonneesSommet(s);
+//				int coordPred[] = getCoordonneesSommet(g.getPredecesseur(s));
+				String direction = "f";
 
-		while (!attente.isEmpty() && courant != s2) {
-			// while (!attente.isEmpty() ) {
-			courant = attente.removeFirst();
-			for (Sommet voisin : g.getVoisins(courant)) {
-				if (!connus.contains(voisin)) {
-					predecesseur.put(voisin, courant);
-
-					String direction = "f";
-					int coordCourant[] = getCoordonneesSommet(courant);
-					int coordVoisin[] = getCoordonneesSommet(voisin);
-					if (coordCourant[0] - coordVoisin[0] == 1)
-						direction += "g";
-					else if (coordCourant[0] - coordVoisin[0] == -1)
-						direction += "d";
-					if (coordCourant[1] - coordVoisin[1] == 1)
-						direction += "h";
-					else if (coordCourant[1] - coordVoisin[1] == -1)
-						direction += "b";
-					map.cells[coordVoisin[0]][coordVoisin[1]]
-							.setObjetStatique(new EntiteStatique(direction));
-
-					connus.add(voisin);
-					attente.addLast(voisin);
-				}
+				if (coordPred[0] - coordCourant[0] == 1)
+					direction += "g";
+				else if (coordPred[0] - coordCourant[0] == -1)
+					direction += "d";
+				if (coordPred[1] - coordCourant[1] == 1)
+					direction += "h";
+				else if (coordPred[1] - coordCourant[1] == -1)
+					direction += "b";
+				map.cells[coordCourant[0]][coordCourant[1]]
+						.setObjetStatique(new EntiteStatique(direction));
 			}
-		}
+		
 
-		// if (s2 != courant)
-		// return null;
-
-		// else
 		LinkedList<Sommet> chemin = new LinkedList<>();
-		courant = s2;
+		Sommet courant = s2;
 		Sommet suivant = null;
 		while (courant != s1) {
 			chemin.addFirst(courant);
 			suivant = courant;
-			courant = predecesseur.get(courant);
+			courant = g.getPredecesseur(courant);
 			int coordCourant[] = getCoordonneesSommet(courant);
 			int coordSuivant[] = getCoordonneesSommet(suivant);
 
@@ -114,6 +115,7 @@ public class Pathfinder {
 			map.cells[coordCourant[0]][coordCourant[1]]
 					.setObjetStatique(new EntiteStatique(direction));
 		}
+
 		chemin.addFirst(s1);
 		return chemin;
 
@@ -126,24 +128,5 @@ public class Pathfinder {
 		coor[1] = Integer.parseInt(split[1]);
 		return coor;
 	}
-	
-	public LinkedList<DeplacementElementaire> routePlusCourte(Entite acteur, Cellule c1, Cellule c2){
-		LinkedList<DeplacementElementaire> deplacements = new LinkedList<DeplacementElementaire>();
-		
-		
-		LinkedList<Sommet> chemin = cheminLargeur(g.getSommetParNom(c1.nom), g.getSommetParNom(c2.nom));
-		Iterator<Sommet> it = chemin.iterator();
-		Cellule precedente = null;
-	
-		
-		Cellule courante = map.getCell( getCoordonneesSommet(it.next()));
-		while (it.hasNext()) {
-			precedente = courante;
-			courante= map.getCell( getCoordonneesSommet(it.next()));
-			deplacements.add(new DeplacementElementaire(acteur, courante.x-precedente.x, courante.y-precedente.y));
-		}
-		
-		return deplacements;
-	}
-	
+
 }

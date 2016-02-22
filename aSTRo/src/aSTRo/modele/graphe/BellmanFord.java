@@ -11,6 +11,10 @@ public class BellmanFord extends Parcours {
 		super(graphe, depart);
 	}
 
+	public BellmanFord(Graphe g, Sommet s1, Sommet s2) {
+		super(g, s1, s2);
+	}
+
 	@Override
 	public void parcourir() {
 		predecesseurs = new HashMap<Sommet, Sommet>();
@@ -73,8 +77,7 @@ public class BellmanFord extends Parcours {
 
 	@Override
 	public double getDistance(Sommet s) {
-		// TODO Auto-generated method stub
-		return 0;
+		return distance.get(s);
 	}
 	
 	
