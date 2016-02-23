@@ -4,21 +4,51 @@ import java.util.HashMap;
 
 public abstract class GrapheAbstrait {
 
-	public abstract void lancerParcours() ;
+	/**
+	 * ajoute le sommet de nom donné au graphe
+	 * 
+	 * @param nom
+	 */
+	public abstract void ajouterSommet(String nom);
 
-	public abstract void ajouterArete(Sommet s1, Sommet s2, Double l);
+	/**
+	 * ajoute l'arete entre les sommets donnes par nom, de longueur l
+	 * 
+	 * @param nom1
+	 * @param nom2
+	 * @param l
+	 */
+	public abstract void ajouterArete(String nom1, String nom2, Double l);
 
-	public abstract void ajouterArete(Sommet s1, Sommet s2);
-
+	/**
+	 * renvoie le sommet de nom donné
+	 * 
+	 * @param nom
+	 * @return
+	 */
 	public abstract Sommet getSommetParNom(String nom);
 
-	public abstract void ajouterSommet(String nom);
-		
-	public abstract HashMap<Sommet, Sommet> getPredecesseurMap() ;
-
-	public abstract Sommet getPredecesseur(Sommet s);
-
+	/**
+	 * change le parcours du graphe
+	 * 
+	 * @param parcours
+	 */
 	public abstract void setParcours(Parcours parcours);
 
+	/**
+	 * lance le parcours du graphe
+	 */
+	public abstract void lancerParcours();
+
+	/**renvoie la map des predecesseurs en entier
+	 * @return
+	 */
+	public abstract HashMap<Sommet, Sommet> getPredecesseurMap();
+
+	/**renvoie uniquement le predecesseur d'un sommet pour le parcours courant
+	 * @param s
+	 * @return
+	 */
+	public abstract Sommet getPredecesseur(Sommet s);
 
 }

@@ -100,24 +100,9 @@ public class MapRectGrid extends Map {
 	}
 
 	@Override
-	public LinkedList<DeplacementElementaire> routePlusCourte(Entite acteur, Cellule c1, Cellule c2){
-		LinkedList<DeplacementElementaire> deplacements = new LinkedList<DeplacementElementaire>();
-		
-		pf.g.setParcours((Parcours) new ParcoursEnLargeur(pf.g, pf.g.getSommetParNom(c1.nom)));
-		
-		LinkedList<Sommet> chemin = pf.cheminLargeur(pf.g.getSommetParNom(c1.nom), pf.g.getSommetParNom(c2.nom));
-		Iterator<Sommet> it = chemin.iterator();
-		Cellule precedente = null;
-		
-		Cellule courante = getCell(it.next());
-		while (it.hasNext()){
-			precedente = courante;
-			courante=getCell(it.next());
-			deplacements.add(new DeplacementElementaire(acteur, courante.x-precedente.x, courante.y-precedente.y));
+	public LinkedList<DeplacementElementaire> plusCourtDeplacements(Entite acteur, Cellule c1, Cellule c2){
+		return pf.plusCourtDeplacements(acteur, c1, c2);
 		}
-		
-		return deplacements;
-	}
 
 	@Override
 	public Cellule getCellule(int x, int y) {

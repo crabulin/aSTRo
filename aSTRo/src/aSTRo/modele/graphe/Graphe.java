@@ -53,7 +53,7 @@ public class Graphe extends GrapheAbstrait{
 	 * @param s
 	 * @return
 	 */
-	public double getDistance(Sommet s){
+	protected double getDistance(Sommet s){
 		return parcours.getDistance(s);
 	}
 	
@@ -84,7 +84,7 @@ public class Graphe extends GrapheAbstrait{
 	 * des aretes
 	 * @param nomfichier
 	 */
-	public Graphe(String nomfichier){
+	protected Graphe(String nomfichier){
 		this();
 		
 		//ouverture du fichier
@@ -116,7 +116,7 @@ public class Graphe extends GrapheAbstrait{
 					if (mots.length==3)
 					ajouterArete(getSommetParNom(mots[1]), getSommetParNom(mots[2]));
 					if (mots.length==4)
-						ajouterArete(getSommetParNom(mots[1]), getSommetParNom(mots[2]), Double.parseDouble(mots[3]));
+						ajouterArete(mots[1], mots[2], Double.parseDouble(mots[3]));
 				}
 			}
 		} catch (IOException e) {
@@ -130,7 +130,7 @@ public class Graphe extends GrapheAbstrait{
 	/**Ajoute le nouveau sommet à l'ensemble des sommets
 	 * @param s
 	 */
-	public void ajouterSommet(Sommet s){
+	private void ajouterSommet(Sommet s){
 		sommets.put(s.nom, s);
 		listeAdjAJour=false;
 	}
@@ -163,7 +163,7 @@ public class Graphe extends GrapheAbstrait{
 	 * @param s
 	 * @return une ArrayList de Sommets
 	 */
-	public ArrayList<Sommet> getVoisins(Sommet s){
+	protected ArrayList<Sommet> getVoisins(Sommet s){
 		//si la liste d'adjacence n'est pas à jour, il faut la recalculer
 		if (!listeAdjAJour)
 			initListeAdj();
@@ -181,7 +181,7 @@ public class Graphe extends GrapheAbstrait{
 		return voisins;
 	}
 	
-	public ArrayList<Arete> getAretesIncidentes(Sommet s) {
+	protected ArrayList<Arete> getAretesIncidentes(Sommet s) {
 		//si la liste d'adjacence n'est pas à jour, il faut la recalculer
 		if (!listeAdjAJour)
 			initListeAdj();
@@ -211,17 +211,20 @@ public class Graphe extends GrapheAbstrait{
 	 * @param s2
 	 */
 	
-	@Override
-	public void ajouterArete(Sommet s1, Sommet s2) {
+	private void ajouterArete(Sommet s1, Sommet s2) {
 		listeAretes.add(new Arete(s1, s2, false));
 		listeAdjAJour=false;
 	}
 	
+	
+
 	@Override
-	public void ajouterArete(Sommet s1, Sommet s2, Double l) {
-		listeAretes.add(new Arete(s1, s2, l, false));
+	public void ajouterArete(String nom1, String nom2, Double l) {
+		listeAretes.add(new Arete(getSommetParNom(nom1), getSommetParNom(nom2), l, false));
 		listeAdjAJour=false;
+		
 	}
+
 	
 	@Override
 	public String toString() {
@@ -237,19 +240,19 @@ public class Graphe extends GrapheAbstrait{
 	 * @param nom
 	 * @return
 	 */
-	public boolean contientSommetDeNom(String nom) {
+	protected boolean contientSommetDeNom(String nom) {
 		return sommets.get(nom)!=null;
 	}
 
-	public ArrayList<Sommet> getListeSommet() {
+	protected ArrayList<Sommet> getListeSommet() {
 		return new ArrayList<Sommet>(sommets.values());
 	}
 	
-	public int getOrdre() {
+	protected int getOrdre() {
 		return sommets.size();
 	}
 
-	public ArrayList<Arete> getListeAretes() {
+	protected ArrayList<Arete> getListeAretes() {
 		return listeAretes;
 	}
 
@@ -258,6 +261,8 @@ public class Graphe extends GrapheAbstrait{
 		parcours.parcourir();
 		
 	}
+
+
 
 }
 

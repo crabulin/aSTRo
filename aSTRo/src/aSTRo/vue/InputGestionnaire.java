@@ -50,7 +50,7 @@ public class InputGestionnaire implements KeyListener, FocusListener,
 			ent.viderActionsEnAttente();
 			mod.mapp.supprimerObjetsStatiques();
 			
-			LinkedList<DeplacementElementaire> route = mod.mapp.routePlusCourte(ent,mod.mapp.getCellule(ent.x,ent.y), cel);
+			LinkedList<DeplacementElementaire> route = mod.mapp.plusCourtDeplacements(ent,mod.mapp.getCellule(ent.x,ent.y), cel);
 			for(DeplacementElementaire de : route){
 				ent.ajouterAction(de);
 			}

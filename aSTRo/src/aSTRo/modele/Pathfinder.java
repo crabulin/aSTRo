@@ -15,12 +15,28 @@ import aSTRo.modele.graphe.Graphe;
 import aSTRo.modele.graphe.Parcours;
 import aSTRo.modele.graphe.ParcoursEnLargeur;
 import aSTRo.modele.graphe.Sommet;
+/**
+ * Classe faisant le lien dans le modèle entre la carte (Map) et le Graphe. 
+ * Crée le graphe associé à la carte, lance les requetes de plus courts chemins
+ * et traduit les résultats du vocabulaire des graphes
+ *  en termes de carte (cellules, entités, entités statiques) 
+ * @author david
+ *
+ */
 
 public class Pathfinder {
 
-	public Graphe g;
-	MapRectGrid map;
+	/** le graphe associé à la carte (Map) où sont effectués les calculs de plus courts chemins
+	 *  
+	 */
+	private Graphe g;
+	
+	/** la carte depuis laquelle le graphe sera calculé
+	 * 
+	 */
+	private MapRectGrid map;
 
+	
 	public Pathfinder(MapRectGrid map) {
 		super();
 		this.map = map;
@@ -51,9 +67,7 @@ public class Pathfinder {
 							longueur = 1;
 						else
 							longueur = 1.41;
-						Sommet s1 = g.getSommetParNom(cells[x][y].nom);
-						Sommet s2 = g.getSommetParNom(v.nom);
-						g.ajouterArete(s1,s2,longueur);
+						g.ajouterArete(cells[x][y].nom, v.nom,longueur);
 								
 					}
 
@@ -63,10 +77,18 @@ public class Pathfinder {
 
 	}
 
-	public LinkedList<Sommet> cheminLargeur(Sommet s1, Sommet s2) {
+	private LinkedList<Sommet> plusCourtChemin(Sommet s1, Sommet s2) {
 
+		///////////////////////////////////////////////////////////////////////
+		//Décommenter une seule des lignes suivantes
 		g.setParcours(new Astar(g, s1, s2));
-		// g.setParcours(new ParcoursEnLargeur(g, s1, null));
+		//g.setParcours(new ParcoursEnLargeur(g, s1, s2));
+		//g.setParcours(new BellmanFord(g, s1));
+		//g.setParcours(new Dijkstra(g, s1, s2));
+		///////////////////////////////////////////////////////////////////////
+		
+		
+		
 		g.lancerParcours();
 
 		for (Entry<Sommet, Sommet> entry : g.getPredecesseurMap().entrySet())
@@ -74,10 +96,6 @@ public class Pathfinder {
 		int coordCourant[] = getCoordonneesSommet(entry.getKey());
 		int coordPred[] = getCoordonneesSommet(entry.getValue());
 		
-//		for (Sommet s : g.getListeSommet()) {
-//			if (g.getPredecesseur(s) != null) {
-//				int coordCourant[] = getCoordonneesSommet(s);
-//				int coordPred[] = getCoordonneesSommet(g.getPredecesseur(s));
 				String direction = "f";
 
 				if (coordPred[0] - coordCourant[0] == 1)
@@ -121,12 +139,46 @@ public class Pathfinder {
 
 	}
 
-	int[] getCoordonneesSommet(Sommet s) {
+	/**calcule les coordonnées d'un sommet a partir de son nom
+	 * Dans le constructeur du pathfinder, les sommets du graphe ont un nom
+	 * de la forme "12 27" où 12 et 27 sont les coordonnées de la cellule (case) correspondante.
+	 * @param s
+	 * @return
+	 */
+	public int[] getCoordonneesSommet(Sommet s) {
 		int[] coor = new int[2];
 		String[] split = s.nom.split(" ");
 		coor[0] = Integer.parseInt(split[0]);
 		coor[1] = Integer.parseInt(split[1]);
 		return coor;
+	}
+
+	/** Renvoie la suite de deplacements élémentaires pour
+	 * se deplacer de c1 à c2,
+	 * en appelant la méthode plusCourtChemin
+	 * @param acteur
+	 * @param c1
+	 * @param c2
+	 * @return
+	 */
+	
+	public LinkedList<DeplacementElementaire> plusCourtDeplacements(Entite acteur, Cellule c1, Cellule c2) {
+			
+		LinkedList<DeplacementElementaire> deplacements = new LinkedList<DeplacementElementaire>();
+		
+		LinkedList<Sommet> chemin = plusCourtChemin(g.getSommetParNom(c1.nom), g.getSommetParNom(c2.nom));
+		Iterator<Sommet> it = chemin.iterator();
+		Cellule precedente = null;
+		
+		Cellule courante = map.getCell(it.next());
+		while (it.hasNext()){
+			precedente = courante;
+			courante=map.getCell(it.next());
+			deplacements.add(new DeplacementElementaire(acteur, courante.x-precedente.x, courante.y-precedente.y));
+		}
+		
+		return deplacements;
+		
 	}
 
 }

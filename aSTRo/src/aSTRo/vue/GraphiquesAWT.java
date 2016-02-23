@@ -23,7 +23,6 @@ public class GraphiquesAWT extends Graphiques {
 	
 	public GraphiquesAWT(Modele modele){
 		this.modele = modele ;
-		System.out.println("la" + modele);
 	}
 	@Override
 	public void init() {

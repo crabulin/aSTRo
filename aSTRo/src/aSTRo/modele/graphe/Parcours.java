@@ -13,13 +13,13 @@ public abstract class Parcours {
 	/**
 	 *L'objet Graphe dans lequel le parcours est effectué 
 	 */
-	Graphe graphe;
+	protected Graphe graphe;
 	
 	/**
 	 * Le sommet depuis lequel le parcours sera effectué
 	 */
-	Sommet depart;
-	Sommet destination;
+	protected Sommet depart;
+	protected Sommet destination;
 	/**
 	 *Predecesseurs dans l'arborescence de parcours 
 	 */
@@ -28,15 +28,15 @@ public abstract class Parcours {
 	/**
 	 * Indique si un parcours a deja été effectué
 	 */
-	boolean parcouru= false;
+	protected boolean parcouru= false;
 	
-	TreeSet<Sommet> sommetsRencontres;
+	protected TreeSet<Sommet> sommetsRencontres;
 	
-	public Sommet getPredecesseur(Sommet s){
+	protected Sommet getPredecesseur(Sommet s){
 		return predecesseurs.get(s);
 	}
 
-	public HashMap<Sommet, Sommet> getPredecesseurMap() {
+	protected HashMap<Sommet, Sommet> getPredecesseurMap() {
 		return predecesseurs;
 	}
 
