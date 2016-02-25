@@ -98,6 +98,9 @@ public class Panneau extends Canvas {
 
 		}
 
+			
+		
+		
 		for (Entite ent : graph.getModele().entitesADessiner()) {
 			double x = ent.x ;
 			double y = ent.y;
@@ -106,6 +109,15 @@ public class Panneau extends Canvas {
 				x += ((DeplacementElementaire) ac).xDirection *ac.avancement / 100;
 				y += ((DeplacementElementaire) ac).yDirection *ac.avancement / 100;
 			}
+			
+			//s'il y a une selection on dessine un cercle autour
+			if (ent.estSelectionne()){
+				double e = 1.2 ; //largeur du cercle par rapport à la tuile
+				g.setColor(Color.white);
+				g.drawOval((int)((x+.5-e/2)*largeur_tuile), (int)((y+.5-e/2)*largeur_tuile), (int) (e*largeur_tuile), (int) (e*largeur_tuile));
+				
+			}
+			
 			g.drawImage(ressources.getSprite("zelda"), (int) (x * largeur_tuile), (int) (y
 					* largeur_tuile), null);
 		}
@@ -118,6 +130,7 @@ public class Panneau extends Canvas {
 			nbFrames = 0;
 		}
 
+		g.setColor(Color.red);
 		g.drawString(moyenne + " fps", 20, 20);
 		g.dispose();
 		bs.show();

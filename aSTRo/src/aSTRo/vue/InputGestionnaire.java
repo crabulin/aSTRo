@@ -1,26 +1,28 @@
 package aSTRo.vue;
+
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import aSTRo.modele.Cellule;
 import aSTRo.modele.DeplacementElementaire;
 import aSTRo.modele.Entite;
 import aSTRo.modele.Modele;
-import aSTRo.modele.Selectionnable;
-
 
 public class InputGestionnaire implements KeyListener, FocusListener,
 		MouseListener, MouseMotionListener {
 
-	//Selectionnable selection = null;
+	// Selectionnable selection = null;
 	Graphiques graphiq;
 	Modele mod;
+	Selectionnable selection = null;
 
 	public InputGestionnaire(Graphiques graphiq) {
 		super();
@@ -42,18 +44,36 @@ public class InputGestionnaire implements KeyListener, FocusListener,
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		//on détermine la cellule dans laquelle le clic a eu lieu
+		// on détermine la cellule dans laquelle le clic a eu lieu
 		Cellule cel = graphiq.getCelluleDuClick(arg0.getX(), arg0.getY());
-		//l'entite selectionnee va se diriger cers cette cellule
-		Entite ent = mod.eg.getSelection();
-		if (ent!=null && cel.type.nonBloquant) {
-			ent.viderActionsEnAttente();
-			mod.mapp.supprimerObjetsStatiques();
-			
-			LinkedList<DeplacementElementaire> route = mod.mapp.plusCourtDeplacements(ent,mod.mapp.getCellule(ent.x,ent.y), cel);
-			for(DeplacementElementaire de : route){
-				ent.ajouterAction(de);
+
+		// quel bouton?
+		switch (arg0.getModifiers()) {
+		case (InputEvent.BUTTON1_MASK): {
+			// on chope l'entite se trouvant dans cette cellule
+			Entite ent = mod.eg.getEntiteAuxCoordonnees(cel.x, cel.y);
+			if (ent != null) {
+				if(selection!=null)
+					selection.deselectionner();
+				selection = ent;
+				ent.selectionner();
+			} else if (selection != null) {
+				selection.deselectionner();
+				selection = null;
 			}
+
+			break;
+		}
+
+		case (InputEvent.BUTTON3_MASK): {
+			if (selection != null && cel.type.nonBloquant) {
+	
+				mod.mapp.supprimerObjetsStatiques();
+				Entite ent = (Entite) selection;
+				ent.ordredAction(cel);
+
+			}
+		}
 		}
 
 	}

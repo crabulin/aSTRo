@@ -5,14 +5,19 @@ package aSTRo.modele;
 public class Entite_Gestionnaire {
 	Entite liste[];
 	MapRectGrid map;
-	Entite selection;
+
 	
 	public Entite_Gestionnaire(MapRectGrid map) {
 		int x=22;
 		int y=0;
-		Zelda z = new Zelda(x,y);
-		selection=z;
-		liste = new Entite[] {z};
+		Zelda z1 = new Zelda(x,y, map);
+		
+		x=10;
+		y=5;
+		Zelda z2 = new Zelda(x,y,map);
+
+
+		liste = new Entite[] {z1,z2};
 		this.map = map;
 		
 		
@@ -29,13 +34,10 @@ public class Entite_Gestionnaire {
 		
 	}
 	
-	public Entite getSelection() {
-		return selection;
-	}
+
 	
 	//implementation trop basique !
 	public Entite getEntiteAuxCoordonnees(int x, int y) {
-		System.out.println("test");
 		for(Entite ent : liste) {
 			if (ent.x==x && ent.y == y)
 				return ent;
